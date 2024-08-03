@@ -8,7 +8,6 @@ import markdown
 
 
 def main():
-    """Main function to handle the Markdown to HTML conversion."""
 
     if (sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html")
