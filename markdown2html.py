@@ -11,7 +11,7 @@ import os
 
 def main():
 
-    if len(sys.argv) < 2:
+    if len(sys.argv) != 2:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         sys.exit(1)
     if not os.path.isfile(sys.argv[1]):
