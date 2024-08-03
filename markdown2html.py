@@ -10,17 +10,26 @@ import os
 
 
 def main():
+    """
+    markdown2html.py: A script that converts a Markdown file to an HTML file.
 
+    Usage:
+        ./markdown2html.py README.md README.html
+    """
     if len(sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
-    elif not os.path.exists(sys.argv[1]):
-        print(f'Missing {sys.argv[1]}', file=sys.stder)
+
+    elif not os.path.isfile(sys.argv[1]):
+        print(f'Missing {sys.argv[1]}', file=sys.stderr)
         exit(1)
 
-    print()
     exit(0)
-
-
 if __name__ == "__main__":
+    """
+    markdown2html.py: A script that converts a Markdown file to an HTML file.
+
+    Usage:
+        ./markdown2html.py README.md README.html
+    """
     main()
