@@ -13,7 +13,7 @@ def main():
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         exit(1)
     if not os.path.isfile(sys.argv[1]):
-        print(f'Missing {sys.argv[1]}', file=sys.stderr)
+        print(f'Missing {sys.argv[1]}')
         exit(1)
     with open(sys.argv[1], 'r') as file:
         read_file = file.read()
