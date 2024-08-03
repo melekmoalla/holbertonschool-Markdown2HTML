@@ -15,10 +15,10 @@ def main():
 
     if len(sys.argv) != 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
-        exit(1)
+        sys.exit(1)
     if not os.path.isfile(sys.argv[1]):
         print(f'Missing {sys.argv[1]}', file=sys.stderr)
-        exit(1)
+        sys.exit(1)
     with open(sys.argv[1], 'r') as file:
         read_file = file.read()
 
@@ -27,7 +27,7 @@ def main():
     with open(sys.argv[2], 'w') as file_mark:
         file_mark.write(html_content)
 
-    exit(0)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
