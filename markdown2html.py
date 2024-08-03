@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
-if __name__ == '__main__':
-    import sys
-    import os
+import sys
+import os
+
+
+def main():
     if (sys.argv) < 3:
         print("Usage: ./markdown2html.py README.md README.html")
         sys.exit(1)
@@ -11,3 +13,7 @@ if __name__ == '__main__':
         sys.exit(1)
     else:
         sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()
