@@ -1,12 +1,13 @@
 #!/usr/bin/python3
+import sys
+import os
+
 """
 markdown2html.py: A script that converts a Markdown file to an HTML file.
 
 Usage:
     ./markdown2html.py README.md README.html
 """
-import sys
-import os
 
 
 def main():
