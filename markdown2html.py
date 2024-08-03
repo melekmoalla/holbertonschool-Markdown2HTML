@@ -17,7 +17,7 @@ def main():
     if not os.path.isfile(sys.argv[1]):
         print(f'Missing {sys.argv[1]}', file=sys.stderr)
         sys.exit(1)
-
+    print()
     sys.exit(0)
 
 
