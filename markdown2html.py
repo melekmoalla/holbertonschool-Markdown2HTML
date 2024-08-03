@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""
+markdown2html.py: A script that converts a Markdown file to an HTML file.
+"""
 import sys
 import os
 
