@@ -12,22 +12,26 @@ import markdown
 
 def main():
     """Main function to handle the Markdown to HTML conversion."""
-
     if len(sys.argv) != 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
-        sys.exit(1)
-    if not os.path.isfile(sys.argv[1]):
-        print(f'Missing {sys.argv[1]}', file=sys.stderr)
-        sys.exit(1)
-    with open(sys.argv[1], 'r') as file:
-        read_file = file.read()
+        exit(1)
 
-    html_content = markdown.markdown(read_file)
+    md_filename = sys.argv[1]
+    html_filename = sys.argv[2]
 
-    with open(sys.argv[2], 'w') as file_mark:
-        file_mark.write(html_content)
+    if not os.path.isfile(md_filename):
+        print(f"Missing {md_filename}", file=sys.stderr)
+        exit(1)
 
-    sys.exit(0)
+    with open(md_filename, 'r') as md_file:
+        md_content = md_file.read()
+
+    html_content = markdown.markdown(md_content)
+
+    with open(html_filename, 'w') as html_file:
+        html_file.write(html_content)
+
+    exit(0)
 
 
 if __name__ == "__main__":
