@@ -6,6 +6,7 @@ import sys
 import os
 import markdown
 
+
 def main():
     """Main function to handle the Markdown to HTML conversion."""
 
@@ -19,7 +20,6 @@ def main():
         read_file = file.read()
 
     html_content = markdown.markdown(read_file)
-
 
     with open(sys.argv[2], 'w') as file_mark:
         file_mark.write(html_content)
