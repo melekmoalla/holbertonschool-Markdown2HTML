@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-markdown2html module
-"""
+
 import sys
 import os
 
@@ -75,4 +73,7 @@ def main():
 
 
 if __name__ == "__main__":
+    """
+    markdown2html module
+    """
     main()
