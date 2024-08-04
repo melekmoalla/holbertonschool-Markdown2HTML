@@ -68,8 +68,26 @@ def main():
         else:
             html_lines.append(i)
 
+    line_html_2 = []
+    m = 0
+    for line in html_lines:
+        if line[0].isalpha():
+            if m == 0:
+                m = 1
+                line_html_2.append('<p>')
+                line_html_2.append(line.strip())
+            else:
+                line_html_2.append(f'<br/>\n{line.strip()}')
+        else:
+            if m == 1:
+                m = 0
+                line_html_2.append("</p>")
+            if line[0] != '\n':
+                line_html_2.append(line)
+    if m == 1:
+        line_html_2.append("</p>")
     with open(sys.argv[2], 'w') as f:
-        f.write("\n".join(html_lines))
+        f.write("\n".join(line_html_2))
 
     sys.exit(0)
 
