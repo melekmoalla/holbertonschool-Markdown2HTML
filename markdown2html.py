@@ -7,12 +7,6 @@ import os
 import hashlib
 
 
-def md5_hash(content):
-    hash_object = hashlib.md5()
-    hash_object.update(content.encode('utf-8'))
-    return hash_object.hexdigest()
-
-
 def main():
     """
     Converts a Markdown heading to an HTML heading
@@ -116,8 +110,11 @@ def main():
                 '')
             line_html_5.append(cleaned.strip())
         elif '[[' in i:
+
+            print(i[i.find("[") +2 : i.find("]")])
             text = i[:i.find(
-                "[")] + md5_hash(i[i.find("[") + 2: i.find("]") - 1]) + i[i.find("]") + 2:]
+                "[")] +  hashlib.md5(i[i.find("[") +2 : i.find("]")].encode()).hexdigest()+ i[i.find("]") + 2:]
+          
             line_html_5.append(text.strip())
         else:
             line_html_5.append(i)
