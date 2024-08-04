@@ -25,7 +25,7 @@ def main():
     line_html_1 = []
     m = 0
     for line in content:
-        if line[0] == '*':
+        if line[:2] == '* ':
             if m == 0:
                 m = 1
                 line_html_1.append('<ol>')
@@ -71,7 +71,7 @@ def main():
     line_html_2 = []
     m = 0
     for line in html_lines:
-        if line[0].isalpha():
+        if line[:2 ] =="**" or line[0].isalpha():
             if m == 0:
                 m = 1
                 line_html_2.append('<p>')
@@ -86,8 +86,17 @@ def main():
                 line_html_2.append(line)
     if m == 1:
         line_html_2.append("</p>")
+
+    line_html_4 = []
+    for i in line_html_2:
+        i = i.replace('**', '<b>', 1)
+        i = i.replace('**', '</b>', 1)
+        i = i.replace('__', '<em>', 1)
+        i = i.replace('__', '</em>', 1)
+        line_html_4.append(i)
+
     with open(sys.argv[2], 'w') as f:
-        f.write("\n".join(line_html_2))
+        f.write("\n".join(line_html_4))
 
     sys.exit(0)
 
