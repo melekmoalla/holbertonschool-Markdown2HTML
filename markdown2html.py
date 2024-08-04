@@ -41,7 +41,6 @@ def main():
         
     ##
     html_lines = []
-    print(line_html)
     for i in line_html:
         if i[0] == '#':
             b = 0
