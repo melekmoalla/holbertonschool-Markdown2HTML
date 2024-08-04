@@ -2,96 +2,77 @@
 """
 markdown2html module
 """
-
 import sys
 import os
 
-def convert_heading(line):
-    """
-    Converts a Markdown heading to an HTML heading
-    """
-    heading_level = 0
-    while heading_level < len(line) and line[heading_level] == '#':
-        heading_level += 1
-    if heading_level > 0 and heading_level <= 6:
-        return f"<h{heading_level}>{line[heading_level:].strip()}</h{heading_level}>"
-    return line
-
-def convert_unordered_list(lines):
-    """
-    Converts Markdown unordered list to HTML unordered list
-    """
-    in_list = False
-    html_lines = []
-    for line in lines:
-        if line.startswith('- '):
-            if not in_list:
-                html_lines.append("<ul>")
-                in_list = True
-            html_lines.append(f"<li>{line[2:].strip()}</li>")
-        else:
-            if in_list:
-                html_lines.append("</ul>")
-                in_list = False
-            html_lines.append(line)
-    if in_list:
-        html_lines.append("</ul>")
-    return html_lines
-
-def convert_ordered_list(lines):
-    """
-    Converts Markdown ordered list to HTML ordered list
-    """
-    in_list = False
-    html_lines = []
-    for line in lines:
-        if line.startswith('* '):
-            if not in_list:
-                html_lines.append("<ol>")
-                in_list = True
-            html_lines.append(f"<li>{line[2:].strip()}</li>")
-        else:
-            if in_list:
-                html_lines.append("</ol>")
-                in_list = False
-            html_lines.append(line)
-    if in_list:
-        html_lines.append("</ol>")
-    return html_lines
 
 def main():
     """
-    Main function that handles the conversion from Markdown to HTML
+    Converts a Markdown heading to an HTML heading
     """
-    # Check the number of arguments
-    if len(sys.argv) < 3:
+
+    if len(sys.argv) != 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         sys.exit(1)
 
-    # Get the input and output file names from the arguments
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
-
-    # Check if the input file exists
-    if not os.path.isfile(input_file):
-        print(f"Missing {input_file}", file=sys.stderr)
+    if not os.path.isfile(sys.argv[1]):
+        print(f'Missing {sys.argv[1]}', file=sys.stderr)
         sys.exit(1)
 
-    # Read the Markdown file
-    with open(input_file, 'r') as f:
-        markdown_content = f.readlines()
+    with open(sys.argv[1], 'r') as f:
+        content = f.readlines()
 
-    # Convert Markdown to HTML
-    html_lines = convert_ordered_list(markdown_content)
-    html_lines = convert_unordered_list(html_lines)
-    html_lines = [convert_heading(line) if not line.startswith('- ') and not line.startswith('* ') else line for line in html_lines]
+    line_html_1 = []
+    m = 0
+    for line in content:
+        if line[0] == '*':
+            if m == 0:
+                m = 1
+                line_html_1.append('<ol>')
+            line_html_1.append(f"<li>{line[2:].strip()}</li>")
+        else:
+            if m == 1:
+                m = 0
+                line_html_1.append("</ol>")
+            line_html_1.append(line)
+    if m == 1:
+        line_html_1.append("</ol>")
 
-    # Write the HTML content to the output file
-    with open(output_file, 'w') as f:
+    line_html = []
+    m = 0
+    for line in line_html_1:
+        if line[0] == '-':
+            if m == 0:
+                m = 1
+                line_html.append('<ul>')
+            line_html.append(f"<li>{line[2:].strip()}</li>")
+        else:
+            if m == 1:
+                m = 0
+                line_html.append("</ul>")
+            line_html.append(line)
+    if m == 1:
+        line_html.append("</ul>")
+
+    html_lines = []
+    for i in line_html:
+        if i[0] == '#':
+            b = 0
+            for a in i:
+                if a == '#':
+                    b += 1
+            if b > 0 and b <= 6:
+                text = f"<h{b}>{i[b:].strip()}</h{b}>"
+                # print(text)
+                html_lines.append(text)
+        else:
+            html_lines.append(i)
+
+    with open(sys.argv[2], 'w') as f:
         f.write("\n".join(html_lines))
 
-    # Exit successfully
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
