@@ -1,35 +1,34 @@
 #!/usr/bin/python3
-"""
-markdown2html.py: A script that converts a Markdown file to an HTML file.
-
-Usage:
-    ./markdown2html.py README.md README.html
-"""
-import sys
-import os
+'''This script takes two arguments: first is a markdown file name and the
+    second is an html output filename
+'''
 
 
-def main():
-    """
-    markdown2html.py: A script that converts a Markdown file to an HTML file.
+if __name__ == '__main__':
+    import sys
+    import os
 
-    Usage:
-        ./markdown2html.py README.md README.html
-    """
     if len(sys.argv) < 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
-        exit(1)
+        print('Usage: ./markdown2html.py README.md README.html', file=sys.stderr)
+        sys.exit(1)
 
-    elif not os.path.isfile(sys.argv[1]):
+    if not os.path.isfile(sys.argv[1]):
         print(f'Missing {sys.argv[1]}', file=sys.stderr)
-        exit(1)
+        sys.exit(1)
 
-    exit(0)
-if __name__ == "__main__":
-    """
-    markdown2html.py: A script that converts a Markdown file to an HTML file.
+    with open(sys.argv[1], 'r') as f:
+        content = f.readlines()
 
-    Usage:
-        ./markdown2html.py README.md README.html
-    """
-    main()
+    html_lines = []
+    for i in content:
+        print(i)
+        b = 0
+        for a in i:
+            if a == '#':
+                b +=1
+        text = f"<h{b}>{i[b:].strip()}</h{b}>"
+        #print(text)
+        html_lines.append(text)
+    with open(sys.argv[2], 'w') as f:
+        f.write("\n".join(html_lines))
+    sys.exit(0)
