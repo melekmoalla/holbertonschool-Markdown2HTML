@@ -1,14 +1,18 @@
 #!/usr/bin/python3
-'''This script takes two arguments: first is a markdown file name and the
-    second is an html output filename
-'''
+"""
+markdown2html module
+"""
+
+import sys
+import os
 
 
 if __name__ == '__main__':
-    import sys
-    import os
+    """
+    Converts a Markdown heading to an HTML heading
+    """
 
-    if len(sys.argv) < 3:
+    if len(sys.argv) != 3:
         print('Usage: ./markdown2html.py README.md README.html', file=sys.stderr)
         sys.exit(1)
 
