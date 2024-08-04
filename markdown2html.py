@@ -25,7 +25,6 @@ def main():
 
     html_lines = []
     for i in content:
-        print(i)
         b = 0
         for a in i:
             if a == '#':
