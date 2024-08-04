@@ -71,7 +71,7 @@ def main():
     line_html_2 = []
     m = 0
     for line in html_lines:
-        if line[:2] == "**" or line[0].isalpha():
+        if '**' in line or line[0].isalpha():
             if m == 0:
                 m = 1
                 line_html_2.append('<p>')
