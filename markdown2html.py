@@ -110,9 +110,9 @@ def main():
                 '')
             line_html_5.append(cleaned.strip())
         elif '[[' in i:
-            text = i[:i.find(
-                "[")] +  hashlib.md5(i[i.find("[") +2 : i.find("]")].encode()).hexdigest()+ i[i.find("]") + 2:]
-          
+            text = i[:i.find("[")] + hashlib.md5(i[i.find("[") + 2: i.find("]")
+                                                   ].encode()).hexdigest() + i[i.find("]") + 2:]
+
             line_html_5.append(text.strip())
         else:
             line_html_5.append(i)
