@@ -98,7 +98,7 @@ def main():
 
     line_html_5 = []
     for i in line_html_4:
-        if i[0] == '(':
+        if '((' in i:
             cleaned = i.replace(
                 'c',
                 '').replace(
