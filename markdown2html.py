@@ -4,6 +4,13 @@ markdown2html module
 """
 import sys
 import os
+import hashlib
+
+
+def md5_hash(content):
+    hash_object = hashlib.md5()
+    hash_object.update(content.encode('utf-8'))
+    return hash_object.hexdigest()
 
 
 def main():
@@ -71,7 +78,7 @@ def main():
     line_html_2 = []
     m = 0
     for line in html_lines:
-        if line[:2] == "**" or line[0].isalpha():
+        if line[:2] == "**" or line[:2] == "((" or line[0].isalpha():
             if m == 0:
                 m = 1
                 line_html_2.append('<p>')
@@ -95,8 +102,28 @@ def main():
         i = i.replace('__', '</em>', 1)
         line_html_4.append(i)
 
+    line_html_5 = []
+    for i in line_html_4:
+        if i[0] == '(':
+            cleaned = i.replace(
+                'c',
+                '').replace(
+                'C',
+                '').replace(
+                ')',
+                '').replace(
+                '(',
+                '')
+            line_html_5.append(cleaned.strip())
+        elif '[[' in i:
+            text = i[:i.find(
+                "[")] + md5_hash(i[i.find("["): i.find("]") + 2]) + i[i.find("]") + 2:]
+            line_html_5.append(text.strip())
+        else:
+            line_html_5.append(i)
+
     with open(sys.argv[2], 'w') as f:
-        f.write("\n".join(line_html_4))
+        f.write("\n".join(line_html_5))
 
     sys.exit(0)
 
