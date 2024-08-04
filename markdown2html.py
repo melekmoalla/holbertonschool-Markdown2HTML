@@ -2,7 +2,6 @@
 """
 markdown2html module
 """
-
 import sys
 import os
 
