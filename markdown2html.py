@@ -97,8 +97,16 @@ def main():
         line_html_4.append(i)
 
     line_html_5 = []
+
     for i in line_html_4:
-        if '((' in i:
+        k = 0
+        if '[[' in i and ']]' in i:
+            text = i[:i.find("[")] + hashlib.md5(i[i.find("[") + 2: i.find("]")
+                                                   ].encode()).hexdigest() + i[i.find("]") + 2:]
+
+            line_html_5.append(text.strip())
+            k = 1
+        if '((' in i and '))' in i:
             cleaned = i.replace(
                 'c',
                 '').replace(
@@ -109,12 +117,8 @@ def main():
                 '(',
                 '')
             line_html_5.append(cleaned.strip())
-        elif '[[' in i:
-            text = i[:i.find("[")] + hashlib.md5(i[i.find("[") + 2: i.find("]")
-                                                   ].encode()).hexdigest() + i[i.find("]") + 2:]
-
-            line_html_5.append(text.strip())
-        else:
+            k = 1
+        if k == 0:
             line_html_5.append(i)
 
     with open(sys.argv[2], 'w') as f:
