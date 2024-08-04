@@ -116,7 +116,6 @@ def main():
                 '')
             line_html_5.append(cleaned.strip())
         elif '[[' in i:
-            print(i[i.find("[") + 2: i.find("]") - 1])
             text = i[:i.find(
                 "[")] + md5_hash(i[i.find("[") + 2: i.find("]") - 1]) + i[i.find("]") + 2:]
             line_html_5.append(text.strip())
