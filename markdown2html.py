@@ -7,48 +7,37 @@ import sys
 import os
 
 
-def convert_heading(line):
+def main():
     """
     Converts a Markdown heading to an HTML heading
     """
-    heading_level = 0
-    while heading_level < len(line) and line[heading_level] == '#':
-        heading_level += 1
-    if heading_level > 0 and heading_level <= 6:
-        return f"<h{heading_level}>{line[heading_level:].strip()}</h{heading_level}>"
-    return line
 
-
-def main():
-    """
-    Main function that handles the conversion from Markdown to HTML
-    """
-    # Check the number of arguments
-    if len(sys.argv) < 3:
+    if len(sys.argv) != 3:
         print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
         sys.exit(1)
 
-    # Get the input and output file names from the arguments
-    input_file = sys.argv[1]
-    output_file = sys.argv[2]
-
-    # Check if the input file exists
-    if not os.path.isfile(input_file):
-        print(f"Missing {input_file}", file=sys.stderr)
+    if not os.path.isfile(sys.argv[1]):
+        print(f'Missing {sys.argv[1]}', file=sys.stderr)
         sys.exit(1)
 
-    # Read the Markdown file
-    with open(input_file, 'r') as f:
-        markdown_content = f.readlines()
+    with open(sys.argv[1], 'r') as f:
+        content = f.readlines()
 
-    # Convert Markdown to HTML
-    html_lines = [convert_heading(line) for line in markdown_content]
+    html_lines = []
+    for i in content:
+        print(i)
+        b = 0
+        for a in i:
+            if a == '#':
+                b += 1
+        if b > 0 and b <= 6:
+            text = f"<h{b}>{i[b:].strip()}</h{b}>"
+            # print(text)
+            html_lines.append(text)
 
-    # Write the HTML content to the output file
-    with open(output_file, 'w') as f:
+    with open(sys.argv[2], 'w') as f:
         f.write("\n".join(html_lines))
 
-    # Exit successfully
     sys.exit(0)
 
 
