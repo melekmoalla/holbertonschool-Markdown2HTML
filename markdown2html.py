@@ -110,8 +110,6 @@ def main():
                 '')
             line_html_5.append(cleaned.strip())
         elif '[[' in i:
-
-            print(i[i.find("[") +2 : i.find("]")])
             text = i[:i.find(
                 "[")] +  hashlib.md5(i[i.find("[") +2 : i.find("]")].encode()).hexdigest()+ i[i.find("]") + 2:]
           
