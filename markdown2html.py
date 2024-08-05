@@ -13,7 +13,8 @@ def main():
     """
 
     if len(sys.argv) != 3:
-        print("Usage: ./markdown2html.py README.md README.html", file=sys.stderr)
+        print("Usage: ./markdown2html.py README.md README.html",
+              file=sys.stderr)
         sys.exit(1)
 
     if not os.path.isfile(sys.argv[1]):
@@ -101,8 +102,10 @@ def main():
     for i in line_html_4:
         k = 0
         if '[[' in i and ']]' in i:
-            text = i[:i.find("[")] + hashlib.md5(i[i.find("[") + 2: i.find("]")
-                                                   ].encode()).hexdigest() + i[i.find("]") + 2:]
+            text = i[:i.find("[")] + hashlib.md5(i[i.find("[[") +
+                                                   2: i.find("]]")
+                                                   ].encode()).hexdigest() +
+            i[i.find("]") + 2:]
 
             line_html_5.append(text.strip())
             k = 1
