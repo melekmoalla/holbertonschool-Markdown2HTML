@@ -102,10 +102,17 @@ def main():
     for i in line_html_4:
         k = 0
         if '[[' in i and ']]' in i:
-            text = i[:i.find("[")] + hashlib.md5(i[i.find("[[") +
-                                                   2: i.find("]]")
-                                                   ].encode()).hexdigest() +
-            i[i.find("]") + 2:]
+            start_index = i.find("[[") + 2
+            end_index = i.find("]]")
+            hash_content = i[start_index:end_index]
+            hashed_content = hashlib.md5(hash_content.encode()).hexdigest()
+
+            text = i[:i.find("[")] + hashed_content + i[i.find("]") + 2:]
+
+            # text = i[:i.find("[")] + hashed_content + i[i.find("]") + 2:]
+            # text = i[:i.find("[")] + hashlib.md5(i[i.find("[[")
+            # + 2: i.find("]]")
+            # ].encode()).hexdigest() + i[i.find("]") + 2:]
 
             line_html_5.append(text.strip())
             k = 1
